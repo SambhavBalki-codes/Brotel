@@ -2,7 +2,7 @@
 const express = require("express");
 
 const storeRouter = express.Router();
-const storeController = require("../controllers/storecontroller");
+const storeController = require("../controllers/storeController");
 
 storeRouter.get("/", storeController.getHomes);
 storeRouter.get("/bookings", storeController.getbookings);
