@@ -8,7 +8,7 @@ exports.getLogin = (req, res, next) => {
   // Render the login page.
   res.render("auth/login", {
     pageTitle: "Login",
-    isLoggedIn: false, // Pass the isLoggedIn flag to the view
+    isLoggedIn: false, 
     user : {}
   });
 
@@ -84,7 +84,7 @@ exports.getSignup = (req, res, next) => {
   // Render the signup page.
   res.render("auth/signup", {
     pageTitle: "Sign Up",
-    isLoggedIn: !!(req.session && req.session.isLoggedIn) ,// Pass the isLoggedIn flag from session
+    isLoggedIn: !!(req.session && req.session.isLoggedIn) ,
     user: {}
   }); 
 };

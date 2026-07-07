@@ -1,14 +1,10 @@
-
 const path = require("path");
 const dns = require("node:dns");
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
-// Import Express framework.
-// Express helps us create web servers and define routes easily.
+
 const express = require("express");
 const multer = require("multer");
 require("dotenv").config();
-
-// In Express, the app object is the central control hub of your server. You use it to handle incoming requests, set up routes, and start the application.
 const app = express();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve static files from the 'uploads' directory
 
@@ -23,7 +19,6 @@ const randomString = (length) => {
   return result;
 }
 
-// used to save images uploaded by the user to the server's file system. The 'dest' option specifies the directory where uploaded files will be stored.
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -47,10 +42,8 @@ const multerOptions = {
   fileFilter: fileFilter
 };
 
-
-// Tell Express to use EJS as the template engine.
 app.set("view engine", "ejs");
-// Tell Express that all EJS files are inside the 'views' folder.
+
 app.set('views' , 'views');
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
@@ -61,7 +54,6 @@ const store = new MongoDBStore({
 });
   
 
-// Make everything inside the 'public' folder accessible to the browser.
 app.use(express.static(path.join(__dirname, "public")));
 
 const authRouter = require("./routes/authRouter");
@@ -73,12 +65,11 @@ const {default: mongoose} = require("mongoose");
 
 const get404 = require("./controllers/errorController").get404;
 
-// Parse form data
-app.use(express.urlencoded({ extended: true }));//true means Express can parse complex, nested data structures (like objects inside objects, or lists/arrays inside objects) sent from your forms.
+app.use(express.urlencoded({ extended: true }));
 app.use(multer(multerOptions).single("photo"));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET, // Replace with a strong secret key in production
+  secret: process.env.SESSION_SECRET, 
   resave: false,
   saveUninitialized: false,
   store: store
@@ -88,7 +79,7 @@ app.use((req, res, next) => {
   req.isLoggedIn = Boolean(req.session && req.session.isLoggedIn);
   next();
 });
-// Global middleware
+
 app.use("/", (req, res, next) => {
   console.log(req.method, req.url);
   next();
@@ -107,10 +98,8 @@ app.use("/host", (req, res, next) => {
   next();
 });
 
-// Host routes
 app.use("/host", hostRouter);
 
-// Root route: show the public index page when logged out, and the home page when logged in
 app.get('/', storeController.getHomes);
 
 // 404 handler

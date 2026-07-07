@@ -1,21 +1,12 @@
-// Import Home model.
-// Used to fetch all homes and details of a specific home.
 const Home = require("../models/home");
 
-// Import Favorites model.
-// Used to add and retrieve favorite homes.
 const Favorites = require("../models/favorites");
 
 
-// ========================================================
-// Controller: Display all homes
-// Route: GET /store
-// ========================================================
 exports.getHomes = async (req, res, next) => {
 
   try {
 
-    // Fetch all homes from the model.
     const registeredHomes = await Home.find();
 
     if (!req.isLoggedIn) {
@@ -27,7 +18,6 @@ exports.getHomes = async (req, res, next) => {
       });
     }
 
-    // Render the Home List page and pass the fetched homes.
     res.render("store/homeList", {
       registeredHomes: registeredHomes,
       pageTitle: "Home",
@@ -43,22 +33,16 @@ exports.getHomes = async (req, res, next) => {
 };
 
 
-// ========================================================
-// Controller: Display Bookings page
-// Route: GET /store/bookings
-// ========================================================
 exports.getbookings = async (req, res, next) => {
 
   try {
 
-    // Fetch all homes.
     const registeredHomes = await Home.find();
 
-    // Render Bookings page.
     res.render("store/bookings", {
       registeredHomes: registeredHomes,
       pageTitle: "Bookings",
-      isLoggedIn: req.isLoggedIn ,// Pass the isLoggedIn flag to the view
+      isLoggedIn: req.isLoggedIn ,
       user : req.session.user,
     });
 
@@ -70,10 +54,6 @@ exports.getbookings = async (req, res, next) => {
 };
 
 
-// ========================================================
-// Controller: Display Favorite Homes
-// Route: GET /store/favoriteList
-// ========================================================
 exports.getfavoriteList = async (req, res, next) => {
   try {
     const favorites = await Favorites.find().populate("homeId");
@@ -85,7 +65,7 @@ exports.getfavoriteList = async (req, res, next) => {
     res.render("store/favoriteList", {
       registeredHomes: favoriteHomes,
       pageTitle: "Favorite List",
-      isLoggedIn: req.isLoggedIn ,// Pass the isLoggedIn flag to the view
+      isLoggedIn: req.isLoggedIn ,
       user : req.session.user,
     });
 
@@ -95,33 +75,25 @@ exports.getfavoriteList = async (req, res, next) => {
   }
 };
 
-// ========================================================
-// Controller: Display details of one home
-// Route: GET /store/homeDetail/:id
-// ========================================================
 exports.getHomeDetail = async (req, res, next) => {
 
   try {
 
-    // Get Home ID from URL.
     const homeId = req.params.id;
 
-    // Fetch the requested home.
     const home = await Home.findById(homeId);
 
-    // If found, render Home Details page.
     if (home) {
 
       res.render("store/homeDetail", {
         home: home,
         pageTitle: "Home Details",
-        isLoggedIn: req.isLoggedIn ,// Pass the isLoggedIn flag to the view
+        isLoggedIn: req.isLoggedIn ,
         user : req.session.user,
       });
 
     }
 
-    // Otherwise redirect to Home page.
     else {
 
       res.redirect("/store");
@@ -136,17 +108,12 @@ exports.getHomeDetail = async (req, res, next) => {
 };
 
 
-// ========================================================
-// Controller: Add Home to Favorites
-// Route: POST /store/favorites
-// ========================================================
 exports.postAddToFavorites = async (req, res, next) => {
   try {
     const homeId = req.body.id;
 
     console.log("Add to favorites:", homeId);
 
-    // Check if already in favorites
     const existingFavorite = await Favorites.findOne({ homeId });
 
     if (!existingFavorite) {
