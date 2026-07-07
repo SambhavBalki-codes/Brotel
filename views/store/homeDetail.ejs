@@ -1,0 +1,71 @@
+<%- include("../partials/head", {pageTitle: "Home Details", isLoggedIn}) %>
+</head>
+
+  <%- include("../partials/header",{user : user}) %>
+
+  <% if(isLoggedIn) { %>
+  <main class="min-h-screen py-10 px-4">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <div class="bg-white rounded-3xl shadow-card border border-surface-200 overflow-hidden">
+        <div class="md:grid md:grid-cols-2 gap-6 p-6 md:p-8 items-start">
+
+          <!-- Left: Images -->
+          <div>
+            <% const photoList = Array.isArray(home.photo) ? home.photo : home.photo ? [home.photo] : []; %>
+            <% if (photoList.length > 0) { %>
+              <img src="/<%= photoList[0] %>" alt="<%= home.houseName %>" class="w-full h-80 md:h-[420px] object-cover rounded-2xl" />
+
+              <% if (photoList.length > 1) { %>
+                <div class="mt-4 grid grid-cols-4 gap-3">
+                  <% photoList.forEach((p, idx) => { if (idx === 0) return; %>
+                    <img src="/<%= p %>" alt="thumb<%= idx %>" class="w-full h-20 object-cover rounded-lg" />
+                  <% }) %>
+                </div>
+              <% } %>
+
+            <% } else { %>
+              <div class="w-full h-80 md:h-[420px] bg-gray-50 flex items-center justify-center rounded-2xl text-gray-400">
+                No image available
+              </div>
+            <% } %>
+          </div>
+
+          <!-- Right: Details -->
+          <div class="p-2 md:p-0">
+            <span class="inline-block mb-3 px-3 py-1 rounded-full bg-primary-50 text-primary-700 text-xs font-semibold uppercase tracking-wide">
+              Home Details
+            </span>
+
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-3"><%= home.houseName %></h1>
+
+            <div class="flex items-center text-gray-500 mb-4">
+              <span class="mr-2 text-lg">📍</span>
+              <span class="font-medium"><%= home.location %></span>
+            </div>
+
+            <div class="inline-flex items-baseline gap-3 mb-6">
+              <div class="text-3xl font-bold text-primary-700">$<%= home.pricePerNight %></div>
+              <div class="text-sm text-gray-500">per night</div>
+            </div>
+
+            <div class="mb-6 text-gray-700">
+              <p><%= home.description ? home.description : 'No description provided.' %></p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <a href="/store" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-600 text-white font-semibold shadow-card hover:bg-primary-700 transition">Back to Home List</a>
+              <a href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-surface-200">Contact Host</a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <% } %>
+
+</body>
+</html>

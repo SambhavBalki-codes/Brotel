@@ -1,0 +1,15 @@
+
+<%if (user && user.userType === "guest") { %>
+<form action="/store/favorites" method="POST">
+  <input type="hidden" name="id" value="<%= home._id.toString() %>">
+  <button 
+    type="submit" 
+    class="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-accent-400 text-gray-900 font-semibold rounded-lg shadow-card hover:bg-accent-500 hover:shadow-card-hover hover:scale-105 active:scale-95 transition-all duration-200"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5 2 5.015 3.998 3 6.475 3A5.5 5.5 0 0110 4.8 5.5 5.5 0 0113.525 3C16.002 3 18 5.015 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
+    </svg>
+    Add to Favorites
+  </button>
+</form>
+<% } %>

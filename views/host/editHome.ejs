@@ -1,0 +1,94 @@
+<%- include("../partials/head", {pageTitle: editing ? "Edit Home" : "Add Home", isLoggedIn}) %>
+</head>
+
+  <%- include("../partials/header" ,{user : user}) %>
+
+  <% if(isLoggedIn) { %>
+  <main class="min-h-screen flex items-center justify-center px-4">
+    <div class="bg-white p-8 rounded-2xl shadow-card border border-surface-200 w-96">
+
+      <div class="flex items-center gap-2 mb-1">
+        <span class="w-8 h-8 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center text-sm font-bold">
+          <%= editing ? "✎" : "+" %>
+        </span>
+        <h1 class="text-xl font-bold text-gray-900">
+          <%= editing ? "Edit" : "Register" %> your Home
+        </h1>
+      </div>
+      <p class="text-sm text-gray-500 mb-6 ml-10">
+        <%= editing ? "Update your listing details below" : "Fill in the details to add a new home" %>
+      </p>
+
+      <form action="/host/<%= editing ? "edit-home" : "add-home" %>" method="POST"  enctype="multipart/form-data" class="flex flex-col gap-4">
+
+        <input type="hidden" name="id" value="<%= editing ? home._id.toString() : '' %>" />
+
+        <div>
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1 block">Home Name</label>
+          <input 
+            type="text" 
+            name="houseName"
+            value="<%= editing ? home.houseName : '' %>" 
+            placeholder="e.g. Cozy Beachside Villa" 
+            class="w-full px-4 py-2 border border-surface-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
+          />
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1 block">Location</label>
+          <input 
+            type="text" 
+            name="location" 
+            value="<%= editing ? home.location : '' %>" 
+            placeholder="e.g. Goa, India" 
+            class="w-full px-4 py-2 border border-surface-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
+          />
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1 block">Price per Night</label>
+          <input 
+            type="number" 
+            name="pricePerNight" 
+            value="<%= editing ? home.pricePerNight : '' %>" 
+            placeholder="e.g. 2500" 
+            class="w-full px-4 py-2 border border-surface-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
+          />
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1 block">Description</label>
+          <textarea
+            name="description"
+            rows="4"
+            placeholder="Describe your home, amenities, and any special notes"
+            class="w-full px-4 py-2 border border-surface-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+          ><%= editing ? home.description : '' %></textarea>
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1 block">Add Stay's Image</label>
+          <input 
+            type="file" 
+            name="photo" 
+            multiple
+            accept="image/.jpg, image/.jpeg, image/.png"
+            placeholder="e.g. 2500" 
+            class="w-full px-4 py-2 border border-surface-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
+          />
+        </div>
+
+        <button 
+          type="submit" 
+          class="mt-2 px-4 py-2.5 rounded-lg bg-primary-600 text-white font-semibold shadow-card hover:bg-primary-700 hover:shadow-card-hover hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+        >
+          <%= editing ? "UPDATE HOME" : "ADD HOME" %>
+        </button>
+
+      </form>
+    </div>
+  </main>
+  <% }%>
+
+</body>
+</html>

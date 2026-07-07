@@ -1,0 +1,100 @@
+<%- include("../partials/head", { pageTitle: "Sign Up", isLoggedIn: (typeof isLoggedIn !== 'undefined' ? isLoggedIn : false), errorMessage: (typeof errorMessage !== 'undefined' ? errorMessage : '') }) %>
+</head>
+
+<%- include("../partials/header"  ,{user : user}) %>
+
+<main class="min-h-screen flex items-center justify-center py-8 px-4 bg-gradient-to-br from-slate-50 via-white to-primary-50">
+	<div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+
+		<!-- Left: Form -->
+		<div class="bg-white border border-gray-200 rounded-2xl shadow-xl p-7">
+
+			<h1 class="text-[1.65rem] font-extrabold text-gray-900 mb-2">Create your account</h1>
+
+			<p class="text-base text-gray-500 mb-5">Join Brotel and start exploring amazing stays.</p>
+
+			<% if (typeof errors !== 'undefined' && errors && errors.length) { %>
+				<div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-600">
+					<ul class="list-disc list-inside">
+						<% errors.forEach(function(err) { %>
+							<li><%= err.msg %></li>
+						<% }); %>
+					</ul>
+				</div>
+			<% } else if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+				<div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-600"><%= errorMessage %></div>
+			<% } %>
+
+			<form action="/auth/sign-up" method="POST" class="space-y-[18px]">
+
+				<div class="grid grid-cols-2 gap-3">
+					<input type="text" name="firstName" placeholder="First name" required class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm transition-all duration-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none" />
+
+					<input type="text" name="lastName" placeholder="Last name" required class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm transition-all duration-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none" />
+				</div>
+
+				<div>
+					<input type="email" name="email" placeholder="Email address" required class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm transition-all duration-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none" />
+				</div>
+
+				<div class="grid grid-cols-2 gap-3">
+					<input type="password" id="password" name="password" placeholder="Password" required aria-describedby="passwordHelp" class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm transition-all duration-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none" />
+
+					<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm transition-all duration-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none" />
+				</div>
+
+				<div>
+					<label class="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
+					<select name="userType" required class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm transition-all duration-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none">
+						<option value="guest">Guest</option>
+						<option value="host">Host</option>
+					</select>
+				</div>
+
+				<div class="flex items-start gap-2">
+					<input id="terms" type="checkbox" name="terms" required class="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
+
+					<label for="terms" class="text-sm text-gray-600 leading-5">I agree to the <a href="#" class="font-medium text-primary-600 hover:text-primary-700 transition-colors">Terms & Conditions</a></label>
+				</div>
+
+				<button type="submit" class="w-full rounded-xl bg-primary-600 py-3 text-white font-semibold shadow-md transition-all duration-200 hover:bg-primary-700 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]">Create Account</button>
+
+			</form>
+
+			<div class="mt-5 text-center text-sm text-gray-500">Already have an account? <a href="/auth/login" class="font-semibold text-primary-600 hover:text-primary-700 transition-colors">Log in</a></div>
+
+		</div>
+
+		<!-- Right: Instructions (hidden on small screens) -->
+		<div class="hidden md:block">
+			<div class="sticky top-20 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+				<h3 class="text-lg font-semibold mb-3">Field requirements</h3>
+				<div class="mb-4">
+					<p class="font-medium">Name rules</p>
+					<ul class="list-disc list-inside ml-3 text-sm text-gray-600 mt-1">
+						<li>Use real first and last name</li>
+						<li>2–50 characters each</li>
+						<li>Letters, spaces, hyphens allowed</li>
+						<li>No numbers or special symbols</li>
+					</ul>
+				</div>
+
+				<div>
+					<p class="font-medium">Password rules</p>
+					<ul class="list-disc list-inside ml-3 text-sm text-gray-600 mt-1">
+						<li>Minimum 8 characters</li>
+						<li>At least one uppercase letter (A-Z)</li>
+						<li>At least one lowercase letter (a-z)</li>
+						<li>At least one number (0-9)</li>
+						<li>At least one special character (e.g. !@#$%^&*)</li>
+						<li>No spaces</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</main>
+
+</body>
+</html>

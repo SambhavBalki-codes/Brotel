@@ -1,0 +1,151 @@
+<header
+  class="relative overflow-hidden bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 backdrop-blur-sm border-b border-primary-200/60 shadow-card sticky top-0 z-50"
+>
+  <!-- Background Decoration -->
+  <div
+    class="pointer-events-none absolute inset-y-0 right-4 hidden lg:flex items-center opacity-25"
+  >
+    <svg viewBox="0 0 120 120" class="w-24 h-24" aria-hidden="true">
+      <circle cx="60" cy="60" r="10" fill="#ffffff" />
+
+      <path
+        d="M60 18L60 42"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M32 32L46 46"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M18 60L42 60"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M32 88L46 74"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M60 78L60 102"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M88 88L74 74"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M102 60L78 60"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M88 32L74 46"
+        stroke="#ffffff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+    </svg>
+  </div>
+
+  <div
+    class="max-w-[68rem] mx-auto flex items-center justify-between px-6 py-3 gap-4"
+  >
+    <!-- Logo -->
+    <a
+      href="/"
+      class="flex items-center gap-2 text-white font-extrabold text-lg no-underline tracking-tight"
+    >
+      <span
+        class="w-8 h-8 rounded-lg bg-white/20 text-white flex items-center justify-center text-sm shadow-card"
+      >
+        A
+      </span>
+      Brotel
+    </a>
+
+    <!-- Navigation -->
+    <div class="flex items-center gap-1">
+
+      <% if (isLoggedIn) { %>
+        <a
+          href="/store"
+          class="text-white/90 font-medium px-3 py-2 rounded-lg hover:bg-white/15 hover:text-white transition-all duration-200"
+        >
+          Home
+        </a>
+          <% if (user && user.userType === "guest") { %>
+
+        <a
+          href="/store/bookings"
+          class="text-white/90 font-medium px-3 py-2 rounded-lg hover:bg-white/15 hover:text-white transition-all duration-200"
+        >
+          Bookings
+        </a>
+
+        <a
+          href="/store/favoriteList"
+          class="text-white/90 font-medium px-3 py-2 rounded-lg hover:bg-white/15 hover:text-white transition-all duration-200"
+        >
+          FavList
+        </a>
+        <% }else {%>
+
+        <a
+          href="/host/hostHomeList"
+          class="text-white/90 font-medium px-3 py-2 rounded-lg hover:bg-white/15 hover:text-white transition-all duration-200"
+        >
+          Hosted Homes
+        </a>
+
+
+        <a
+          href="/host/add-home"
+          class="ml-2 px-4 py-2 rounded-lg font-semibold bg-white text-primary-700 shadow-card hover:shadow-card-hover hover:scale-105 transition-all duration-200"
+        >
+          + Add Home
+        </a>
+        <%}%>
+
+      <% } %>
+
+      <% if (!isLoggedIn) { %>
+
+        <a
+          href="/auth/login"
+          class="ml-2 px-4 py-2 rounded-lg font-semibold bg-white text-primary-700 shadow-card hover:shadow-card-hover hover:scale-105 transition-all duration-200"
+        >
+          Login
+        </a>
+
+        <a href="/auth/sign-up" class="ml-2 px-4 py-2 rounded-lg font-semibold bg-white text-primary-700 shadow-card hover:shadow-card-hover hover:scale-105 transition-all duration-200">
+          Sign Up
+        </a>
+
+      <% } else { %>
+
+        <form action="/auth/logout" method="POST" class="inline">
+          <button
+            type="submit"
+            class="ml-2 px-4 py-2 rounded-lg font-semibold bg-white text-primary-700 shadow-card hover:shadow-card-hover hover:scale-105 transition-all duration-200"
+          >
+            Logout
+          </button>
+        </form>
+
+      <% } %>
+
+    </div>
+  </div>
+</header>
