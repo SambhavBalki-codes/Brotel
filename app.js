@@ -143,12 +143,17 @@ app.use(get404);
 //   services (Database, Cache, External APIs, etc.) are ready.
 // - This is a standard production-level backend practice.
 
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGODB_URI).then(() => {
-  console.log("Mongoose Connected");
-  app.listen(process.env.PORT, () => {
-    console.log(`Server is listening on port ${process.env.PORT}`);
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("Mongoose Connected");
+
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Mongoose Connection Error:", err);
   });
-}).catch(err => {
-  console.error("Mongoose Connection Error:", err);
-});
